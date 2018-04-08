@@ -31,7 +31,7 @@ def article_switch_vote(redis, user, from_article, to_article)
 
       # increment the number of votes and the score for the to_article
       redis.zincrby('score:', VOTE_SCORE, to_article)
-      redis.hincrby(to_article, 'votes', -1)
+      redis.hincrby(to_article, 'votes', 1)
     end
   end
 end
