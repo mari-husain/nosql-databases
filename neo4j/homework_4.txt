@@ -1,0 +1,31 @@
+// Modeling Harry Potter
+
+CREATE (hogwarts:School {name: "Hogwarts"})
+	, (harry:Student {name: "Harry"})
+	, (hermione:Student {name: "Hermione"})
+	, (ron:Student {name: "Ron"})
+	, (draco:Student {name: "Draco"})
+	, (snape:Alum:Employee {name: "Snape"})
+	, (hagrid:Employee {name: "Hagrid"})
+	, (gryffindor:House {name: "Gryffindor"})
+	, (slytherin:House {name: "Slytherin"});
+
+MATCH (a:Student) , (b:School) WHERE a.name = 'Harry' AND b.name = 'Hogwarts' CREATE (a)-[r:STUDENT_AT {since: 2001}]->(b);
+MATCH (a:Student) , (b:School) WHERE a.name = 'Hermione' AND b.name = 'Hogwarts' CREATE (a)-[r:STUDENT_AT {since: 2001}]->(b);
+MATCH (a:Student) , (b:School) WHERE a.name = 'Ron' AND b.name = 'Hogwarts' CREATE (a)-[r:STUDENT_AT {since: 2001}]->(b);
+MATCH (a:Student) , (b:School) WHERE a.name = 'Draco' AND b.name = 'Hogwarts' CREATE (a)-[r:STUDENT_AT {since: 2001}]->(b);
+MATCH (a:Student) , (b:House) WHERE a.name = 'Harry' AND b.name = 'Gryffindor' CREATE (a)-[r:IN_HOUSE]->(b);
+MATCH (a:Student) , (b:House) WHERE a.name = 'Hermione' AND b.name = 'Gryffindor' CREATE (a)-[r:IN_HOUSE]->(b);
+MATCH (a:Student) , (b:House) WHERE a.name = 'Ron' AND b.name = 'Gryffindor' CREATE (a)-[r:IN_HOUSE]->(b);
+MATCH (a:Student) , (b:House) WHERE a.name = 'Draco' AND b.name = 'Slytherin' CREATE (a)-[r:IN_HOUSE]->(b);
+MATCH (a:House) , (b:School) WHERE a.name = 'Gryffindor' AND b.name = 'Hogwarts' CREATE (a)-[r:HOUSE_OF]->(b);
+MATCH (a:House) , (b:School) WHERE a.name = 'Slytherin' AND b.name = 'Hogwarts' CREATE (a)-[r:HOUSE_OF]->(b);
+MATCH (a:Employee) , (b:School) WHERE a.name = 'Snape' AND b.name = 'Hogwarts' CREATE (a)-[r:EMPLOYEE_OF {since: 1986}]->(b);
+MATCH (a:Employee) , (b:School) WHERE a.name = 'Hagrid' AND b.name = 'Hogwarts' CREATE (a)-[r:EMPLOYEE_OF {since: 1984}]->(b);
+MATCH (a:Alum) , (b:School) WHERE a.name = 'Snape' AND b.name = 'Hogwarts' CREATE (a)-[r:GRADUATE_OF {year: 1982}]->(b);
+
+// get all students who live in Gryffindor
+MATCH (a:House)<-[r:IN_HOUSE]-(b:Student) WHERE a.name = 'Gryffindor' RETURN b.name, type(r), a.name;
+
+// get all the employees who work at the school Harry attends (Hogwarts)
+MATCH (a:Student)-[r1:STUDENT_AT]->(b:School)<-[r2:EMPLOYEE_OF]-(c) WHERE a.name = 'Harry' RETURN a.name, type(r1), b.name, type(r2), c.name;
