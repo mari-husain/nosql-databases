@@ -53,7 +53,7 @@ def make_db():
 					""")
 
 			tx.run("""
-					CREATE (mari:Rentor { name: 'Mari' })
+					CREATE (mari:Rentor:User { name: 'Mari' })
 					, (salman:User { name: 'Salman' })
 					, (zara:User { name: 'Zara' })
 
