@@ -205,26 +205,31 @@ def end_ride(name, bike, dock):
 make_db()
 
 # Action 1: A new user signs up for an account.
+# NOTE: new_user assumes we already know "Martha" is a unique username.
 new_user("Martha")
 
 # Action 2: Martha checks which bikes are available at the HR station.
 bikes_at_station("Highlands Ranch")
 
 # Action 3: Martha undocks the bike in spot 2, thus beginning her trip.
+# NOTE: The spot id would be provided by some sort of hardware in the spot itself (ex. a trigger)
 martha_bike = begin_ride("Martha", 2)
 
 # Action 4: Martha snaps a photo of the bike on her ride and uploads it.
 add_photo("Martha", martha_bike, "/ex/photo3.jpg")
 
 # Action 5: Martha decides to view all photos of the bike she rode.
+# NOTE: the bike Martha wants to get pictures of would be selected (tapped) in the app to get the bike ID
 get_all_photos(martha_bike)
 
 # Action 6: Martha decides to leave a review of the bike she rode.
+# NOTE: Martha would select the bike in the app to get its ID, and she would provide the rating and the comment
 add_review("Martha", martha_bike, 1, "Horrible bike!")
 
 # Action 7: Martha checks which docks are empty at the Lakewood station.
 empty_spots_at_station("Lakewood")
 
 # Action 8: Martha returns the bike to dock 1 at the Lakewood station, thus ending her trip.
+# NOTE: again, dock ID would be provided by hardware in the dock
 end_ride("Martha", martha_bike, 1)
 
