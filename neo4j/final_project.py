@@ -53,7 +53,7 @@ def make_db():
 					""")
 
 			tx.run("""
-					CREATE (mari:Rentor:User { name: 'Mari' })
+					CREATE (mari:Rentor { name: 'Mari' })
 					, (salman:User { name: 'Salman' })
 					, (zara:User { name: 'Zara' })
 
@@ -157,7 +157,7 @@ def get_all_photos(bike):
 	with driver.session() as session:
 		with session.begin_transaction() as tx:
 			for record in tx.run("""
-								MATCH (n:User)-[p:TOOK_PHOTO_OF]->(b:Bike)
+								MATCH (n)-[p:TOOK_PHOTO_OF]->(b:Bike)
 								WHERE b.id = {bike}
 								RETURN n.name, b.id, p.path, p.date
 								ORDER BY p.date DESC
