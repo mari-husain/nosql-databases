@@ -99,7 +99,7 @@ def make_db():
 					, (trip2)-[:ENDED_AT { on: "2018-05-05 13:19:20" }]->(lakewood)
 
 					// Create a trip, which Salman is currently taking on Mari's hipster bike from the Lakewood station.
-					, (salman)-[:TOOK]->(trip3:Trip)-[:USED]->(bike)
+					, (salman)-[:TOOK]->(trip3:Trip)-[:USED]->(hipsterBike)
 					, (trip3)-[:STARTED_AT { on: "2018-05-05 13:38:14" }]->(lakewood)
 
 					// Create a review by Salman of Mari's bike
